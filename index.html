@@ -73,19 +73,84 @@
 </section>
 
 <section id="contact" style="padding:60px 20px;">
-<h2>Contact Me</h2>
-<form>
-<input type="text" placeholder="Your Name" style="width:100%;padding:12px;margin:8px 0;"><br>
-<input type="email" placeholder="Email" style="width:100%;padding:12px;margin:8px 0;"><br>
-<textarea placeholder="Your Message" style="width:100%;height:150px;padding:12px;margin:8px 0;"></textarea><br>
-<button style="padding:15px 25px;background:#2563eb;color:white;border:none;border-radius:8px;">Send Message</button>
-</form>
-<p>Email: odeylennyowoche@gmail.com</p>
-<p>GitHub: github.com/Odey-James lenny</p>
-<p>LinkedIn: linkedin.com/in/odey-james lenny</p>
+    <h2>Contact Me</h2>
+
+    <form id="contact-form">
+        <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            style="width:100%;padding:12px;margin:8px 0;">
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+            style="width:100%;padding:12px;margin:8px 0;">
+
+        <textarea
+            name="message"
+            placeholder="Your Message"
+            required
+            style="width:100%;height:150px;padding:12px;margin:8px 0;"></textarea>
+
+        <button
+            type="submit"
+            id="sendBtn"
+            style="padding:15px 25px;background:#2563eb;color:white;border:none;border-radius:8px;cursor:pointer;">
+            Send Message
+        </button>
+    </form>
+
+    <p id="status" style="margin-top:20px;"></p>
+
+    <p>Email: odeylennyowoche@gmail.com</p>
 </section>
 
 <footer style="background:#111827;padding:20px;text-align:center;">
 © 2026 Lenny Odey. All Rights Reserved.
 </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("tSd9A1SmdZShdktqGm_o6");
+
+const form = document.getElementById("contact-form");
+const status = document.getElementById("status");
+const btn = document.getElementById("sendBtn");
+
+form.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    btn.innerHTML = "Sending...";
+    btn.disabled = true;
+
+    emailjs.sendForm(
+        "service_5l1sthp",
+        "template_cy7rvb3",
+        this
+    ).then(function(){
+
+        status.style.color = "lime";
+        status.innerHTML = "✅ Message sent successfully!";
+        form.reset();
+
+    }, function(error){
+
+        status.style.color = "red";
+        status.innerHTML = "❌ Failed to send message. Please try again.";
+
+        console.log(error);
+    }).finally(function(){
+
+        btn.innerHTML = "Send Message";
+        btn.disabled = false;
+
+    });
+
+});
+</script>
 </body></html>
