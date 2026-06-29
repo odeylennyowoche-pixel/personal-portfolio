@@ -143,7 +143,8 @@ form.addEventListener("submit", function(e) {
         status.style.color = "red";
         status.innerHTML = "❌ Failed to send message. Please try again.";
 
-        console.log(error);
+       alert(JSON.stringify(error));
+console.log(error);
     }).finally(function(){
 
         btn.innerHTML = "Send Message";
